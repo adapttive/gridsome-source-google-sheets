@@ -1,46 +1,42 @@
 const { google } = require('googleapis')
 
 class GoogleSheetSource {
-  static defaultOptions() {
-    return {
-      sheetId: '',
-      apiKey: '',
-      type: 'googleSheet',
-    }
-  }
+  constructor(api, options) {
+    const spreadsheetData = google.sheets({
+      version: 'v4',
+      auth: options.apiKey,
+    })
 
-  constructor(api, options = GoogleSheetSource.defaultOptions()) {
-    this.options = options
+    options.spreadsheets.forEach(spreadsheet => {
+      spreadsheet.sheets.forEach(sheet => {
+        api.loadSource(async actions => {
+          const collection = actions.addCollection(sheet.collectionName)
 
-    api.loadSource(async store => {
-      const contentType = store.addCollection({
-        typeName: this.options.type
-      })
-
-      const sheets = google.sheets({
-        version: 'v4',
-        auth: this.options.apiKey,
-      })
-
-      await sheets.spreadsheets.values
-        .get({
-          spreadsheetId: this.options.sheetId,
-          range: 'A1:ZZ10000',
+          await spreadsheetData.spreadsheets.values
+            .get({
+              spreadsheetId: spreadsheet.spreadsheetId,
+              range: `'${sheet.sheetName}'`,
+            })
+            .then(response => {
+              const sheetData = response.data.values
+              const titles = sheetData.shift()
+              const nodes = sheetData.map((value, nodeIndex) => {
+                return titles.reduce(
+                  (title, key, index) => ({
+                    ...title,
+                    [key]: value[index],
+                    id: nodeIndex,
+                  }),
+                  {}
+                )
+              })
+              nodes.map(value => {
+                collection.addNode(value)
+              })
+            })
+            .catch(err => console.log(err))
         })
-        .then(response => {
-          const data = response.data.values
-          const titles = data.shift()
-          const nodes = data.map(value => {
-            return titles.reduce(
-              (title, key, index) => ({ ...title, [key]: value[index] }),
-              {}
-            )
-          })
-          nodes.map((value, key, title) => {
-            contentType.addNode(value)
-          })
-        })
-        .catch(err => console.log(err))
+      })
     })
   }
 }
