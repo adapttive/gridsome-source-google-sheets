@@ -39,8 +39,8 @@ module.exports = {
             spreadsheetid: 'SPREADSHEET_ID',
             sheets: [
               {
-                sheetName: 'SHEET_NAME',
-                collectionName: 'COLLECTION_NAME',
+                sheetName: 'SHEET_NAME', // Example: "Sheet1"
+                collectionName: 'COLLECTION_NAME', // Example: "Users" (Must be unique)
               },
             ],
           },
@@ -59,21 +59,21 @@ spreadsheets: [
     spreadsheetid: 'SPREADSHEET_ID_1',
     sheets: [
       {
-        sheetName: "SHEET_NAME", // "Sheet1"
-        collectionName: "UNIQUE_COLLECTION_NAME" // "Users" (Must be Unique)
-      }
-    ]
+        sheetName: 'SHEET_NAME', // Example: "Sheet1"
+        collectionName: 'COLLECTION_NAME', // Example: "Users" (Must be unique)
+      },
+    ],
   },
   {
     spreadsheetid: 'SPREADSHEET_ID_2',
     sheets: [
       {
-        sheetName: "SHEET_NAME", // "Sheet1"
-        collectionName: "COLLECTION_NAME" // "Projects" (Must be unique)
-      }
-    ]
-  }
-],
+        sheetName: 'SHEET_NAME', // Example: "Sheet1"
+        collectionName: 'COLLECTION_NAME', // Example: "Projects" (Must be unique)
+      },
+    ],
+  },
+]
 ```
 
 ### How to Use Multiple Sheets from the Same Spreadsheet
@@ -84,12 +84,12 @@ spreadsheets: [
     spreadsheetid: 'SPREADSHEET_ID',
     sheets: [
       {
-        sheetName: 'SHEET_NAME', // "Sheet1"
-        collectionName: 'COLLECTION_NAME', // "Projects" (Must be unique)
+        sheetName: 'SHEET_NAME', // Example: "Sheet1"
+        collectionName: 'COLLECTION_NAME', // Example: "Projects" (Must be unique)
       },
       {
-        sheetName: 'SHEET_NAME', // "Sheet2"
-        collectionName: 'COLLECTION_NAME', // "Users" (Must be Unique)
+        sheetName: 'SHEET_NAME', // Example: "Sheet2"
+        collectionName: 'COLLECTION_NAME', // Example: "Users" (Must be Unique)
       },
     ],
   },
