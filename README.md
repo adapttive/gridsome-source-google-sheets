@@ -36,7 +36,7 @@ module.exports = {
         apiKey: 'GOOGLE_API_KEY',
         spreadsheets: [
           {
-            spreadsheetid: 'SPREADSHEET_ID',
+            spreadsheetId: 'SPREADSHEET_ID',
             sheets: [
               {
                 sheetName: 'SHEET_NAME', // Example: "Sheet1"
@@ -54,9 +54,9 @@ module.exports = {
 ### How to Use Multiple Spreadsheets
 
 ```js
-spreadsheets: [
+options.spreadsheets: [
   {
-    spreadsheetid: 'SPREADSHEET_ID_1',
+    spreadsheetId: 'SPREADSHEET_ID_1',
     sheets: [
       {
         sheetName: 'SHEET_NAME', // Example: "Sheet1"
@@ -65,7 +65,7 @@ spreadsheets: [
     ],
   },
   {
-    spreadsheetid: 'SPREADSHEET_ID_2',
+    spreadsheetId: 'SPREADSHEET_ID_2',
     sheets: [
       {
         sheetName: 'SHEET_NAME', // Example: "Sheet1"
@@ -79,9 +79,9 @@ spreadsheets: [
 ### How to Use Multiple Sheets from the Same Spreadsheet
 
 ```js
-spreadsheets: [
+options.spreadsheets: [
   {
-    spreadsheetid: 'SPREADSHEET_ID',
+    spreadsheetId: 'SPREADSHEET_ID',
     sheets: [
       {
         sheetName: 'SHEET_NAME', // Example: "Sheet1"
@@ -98,14 +98,17 @@ spreadsheets: [
 
 ### Example query on page template
 
+This plugin assumes that the first row in your table is the column name. In this example the 2 columns that exist are named `title` and `body`, with `id` being a key that this plugin generates automatically.
+
 ```js
 <page-query>
   query {
     allCollectionName {
       edges {
         node {
-          id
-          title
+          id, // Automatically generated
+          title,
+          body
         }
       }
     }
@@ -115,14 +118,14 @@ spreadsheets: [
 
 ### To use data in page
 
+`$page.allCollectionName.edges` will be an array of each row of your Google Sheet.
+
 ```js
 <template>
-  <div>
-    {{ $page.allGoogleSheet.node.id }}
-  </div>
-  <div>
-    {{ $page.allGoogleSheet.node.title }}
-  </div>
+    <!--  Example: "{{ $page.allUsers.edges }}" -->
+    <div v-for="row in $page.allCollectionName.edges" v-key="row.node.id">
+      {{ row.node.id }}
+    </div>
 </template>
 ```
 
@@ -137,37 +140,49 @@ module.exports = {
     {
       use: 'gridsome-source-google-sheets',
       options: {
-        sheetId: 'GOOGLE_SHEET_ID',
         apiKey: 'GOOGLE_API_KEY',
-        // type: 'TYPE_NAME', //Optional - default is googleSheet. Used for graphql queries.
+        spreadsheets: [
+          {
+            spreadsheetId: 'SPREADSHEET_ID',
+            sheets: [
+              {
+                sheetName: 'SHEET_NAME', // Example: "Sheet1"
+                collectionName: 'COLLECTION_NAME', // Example: "Users" (Must be unique)
+              },
+            ],
+          },
+        ],
       },
     },
   ],
   templates: {
-    googleSheet: [
+    collectionName: [
       {
-        path: '/:id',
-        component: './src/templates/googleSheet.vue',
+        path: '/somePath/:id', // Example: "/user/:id"
+        component: './src/templates/collectionName.vue', // Example: "./src/templates/users.vue"
       },
     ],
   },
 }
 ```
 
-### Example template in src/template/googleSheet.vue
+### Example template in src/template/collectionName.vue
 
 ```js
 <template>
   <layout>
-    <div>{{$page.googleSheet.title}}</div>
-    <div>{{$page.googleSheet.body}}</div>
+    <!--  Example: "{{ $page.users.title }}" -->
+    <div>{{ $page.collectionName.title }}</div>
+
+    <!--  Example: "{{ $page.users.body }}" -->
+    <div>{{ $page.collectionName.body }}</div>
   </layout>
 </template>
 
 <page-query>
-query Post ($path: String!) {
-  googleSheet (path: $path) {
-    title
+query ($id: ID!) {
+  collectionName(id: $id) { // Example: "users(id: $id)"
+    title,
     body
   }
 }
