@@ -1,23 +1,19 @@
 {
-  "name": "gridsome-source-google-sheets",
+  "name": "gridsome-source-google-sheets-v2",
   "author": {
-    "name": "Spencer Wallace",
-    "email": "spencer.wallace@outlook.com"
+    "name": "JB Hutch"
   },
-  "version": "0.4.0",
-  "description": "Gridsome source plugin for google sheets",
+  "version": "1.0.0",
+  "description": "Gridsome source plugin for google sheets, handling multiple sheets",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
-    "url": "git://github.com/spenwall/gridsome-source-google-sheets.git"
+    "url": "git://github.com/IHIutch/gridsome-source-google-sheets.git"
   },
   "bugs": {
-    "url": "https://github.com/spenwall/gridsome-source-google-sheets/issues"
+    "url": "https://github.com/IHIutch/gridsome-source-google-sheets/issues"
   },
-  "homepage": "https://github.com/spenwall/gridsome-source-google-sheets.git",
+  "homepage": "https://github.com/IHIutch/gridsome-source-google-sheets.git",
   "license": "MIT",
   "keywords": [
     "gridsome",

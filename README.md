@@ -1,8 +1,8 @@
-# Gridsome Source for Google Sheets
+# Gridsome Source for Google Sheets v2
 
-![npm](https://img.shields.io/npm/v/gridsome-source-google-sheets.svg)
-![npm](https://img.shields.io/npm/dt/gridsome-source-google-sheets.svg)
-![NPM](https://img.shields.io/npm/l/gridsome-source-google-sheets.svg)
+![npm](https://img.shields.io/npm/v/gridsome-source-google-sheets-v2)
+![github](https://img.shields.io/github/package-json/v/IHIutch/gridsome-source-google-sheets)
+![npm](https://img.shields.io/npm/dt/gridsome-source-google-sheets-v2)
 
 Source plugin for fetching data from Google Sheets.
 
@@ -28,26 +28,26 @@ You will need to generate a google api key [here](https://console.developers.goo
 
 ```js
 module.exports = {
-  siteName: 'Gridsome',
+  siteName: "Gridsome",
   plugins: [
     {
-      use: 'gridsome-source-google-sheets',
+      use: "gridsome-source-google-sheets",
       options: {
-        apiKey: 'GOOGLE_API_KEY',
+        apiKey: "GOOGLE_API_KEY",
         spreadsheets: [
           {
-            spreadsheetId: 'SPREADSHEET_ID',
+            spreadsheetId: "SPREADSHEET_ID",
             sheets: [
               {
-                sheetName: 'SHEET_NAME', // Example: "Sheet1"
-                collectionName: 'COLLECTION_NAME', // Example: "Users" (Must be unique)
-              },
-            ],
-          },
-        ],
-      },
-    },
-  ],
+                sheetName: "SHEET_NAME", // Example: "Sheet1"
+                collectionName: "COLLECTION_NAME" // Example: "Users" (Must be unique)
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
 }
 ```
 
@@ -135,34 +135,34 @@ To use this in a template first setup the template route in gridsome.config.js
 
 ```js
 module.exports = {
-  siteName: 'Gridsome',
+  siteName: "Gridsome",
   plugins: [
     {
-      use: 'gridsome-source-google-sheets',
+      use: "gridsome-source-google-sheets",
       options: {
-        apiKey: 'GOOGLE_API_KEY',
+        apiKey: "GOOGLE_API_KEY",
         spreadsheets: [
           {
-            spreadsheetId: 'SPREADSHEET_ID',
+            spreadsheetId: "SPREADSHEET_ID",
             sheets: [
               {
-                sheetName: 'SHEET_NAME', // Example: "Sheet1"
-                collectionName: 'COLLECTION_NAME', // Example: "Users" (Must be unique)
-              },
-            ],
-          },
-        ],
-      },
-    },
+                sheetName: "SHEET_NAME", // Example: "Sheet1"
+                collectionName: "COLLECTION_NAME" // Example: "Users" (Must be unique)
+              }
+            ]
+          }
+        ]
+      }
+    }
   ],
   templates: {
     collectionName: [
       {
-        path: '/somePath/:id', // Example: "/user/:id"
-        component: './src/templates/collectionName.vue', // Example: "./src/templates/users.vue"
-      },
-    ],
-  },
+        path: "/somePath/:id", // Example: "/user/:id"
+        component: "./src/templates/collectionName.vue" // Example: "./src/templates/users.vue"
+      }
+    ]
+  }
 }
 ```
 
