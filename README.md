@@ -3,6 +3,9 @@
 ![npm](https://img.shields.io/npm/dt/gridsome-source-google-sheets-v2)
 ![npm](https://img.shields.io/npm/v/gridsome-source-google-sheets-v2)
 ![github](https://img.shields.io/github/package-json/v/IHIutch/gridsome-source-google-sheets)
+<br>
+
+> This is an updated fork of [this repository](https://github.com/spenwall/gridsome-source-google-sheets), but until my PR gets merged I decided to publish my own plugin.
 
 Gridsome source plugin for google sheets, handles multiple pages or sheets!
 
