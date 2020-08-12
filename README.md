@@ -1,10 +1,10 @@
 # Gridsome Source for Google Sheets v2
 
+![npm](https://img.shields.io/npm/dt/gridsome-source-google-sheets-v2)
 ![npm](https://img.shields.io/npm/v/gridsome-source-google-sheets-v2)
 ![github](https://img.shields.io/github/package-json/v/IHIutch/gridsome-source-google-sheets)
-![npm](https://img.shields.io/npm/dt/gridsome-source-google-sheets-v2)
 
-Source plugin for fetching data from Google Sheets.
+Gridsome source plugin for google sheets, handles multiple pages or sheets!
 
 ## Requirements
 
@@ -13,13 +13,13 @@ Gridsome: >0.7.0
 ## Install
 
 ```js
-yarn add gridsome-source-google-sheets
+yarn add gridsome-source-google-sheets-v2
 ```
 
 npm
 
 ```js
-npm install gridsome-source-google-sheets
+npm install gridsome-source-google-sheets-v2
 ```
 
 ## How to use
@@ -68,7 +68,7 @@ options.spreadsheets: [
     spreadsheetId: 'SPREADSHEET_ID_2',
     sheets: [
       {
-        sheetName: 'SHEET_NAME', // Example: "Sheet1"
+        sheetName: 'SHEET_NAME', // Example: "Sheet2"
         collectionName: 'COLLECTION_NAME', // Example: "Projects" (Must be unique)
       },
     ],
@@ -168,7 +168,7 @@ module.exports = {
 
 ### Example template in src/template/collectionName.vue
 
-```js
+```html
 <template>
   <layout>
     <!--  Example: "{{ $page.users.title }}" -->
@@ -178,7 +178,9 @@ module.exports = {
     <div>{{ $page.collectionName.body }}</div>
   </layout>
 </template>
+```
 
+```js
 <page-query>
 query ($id: ID!) {
   collectionName(id: $id) { // Example: "users(id: $id)"
