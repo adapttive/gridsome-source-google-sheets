@@ -34,7 +34,7 @@ module.exports = {
   siteName: "Gridsome",
   plugins: [
     {
-      use: "gridsome-source-google-sheets",
+      use: "gridsome-source-google-sheets-v2",
       options: {
         apiKey: "GOOGLE_API_KEY",
         spreadsheets: [
