@@ -3,7 +3,7 @@
   "author": {
     "name": "JB Hutch"
   },
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Gridsome source plugin for google sheets, handles multiple pages or sheets",
   "main": "index.js",
   "repository": {
