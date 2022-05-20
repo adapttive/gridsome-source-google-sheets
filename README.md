@@ -1,56 +1,117 @@
-# Gridsome Source for Google Sheets
+# Gridsome Source for Google Sheets v2
 
-![npm](https://img.shields.io/npm/v/gridsome-source-google-sheets.svg)
-![npm](https://img.shields.io/npm/dt/gridsome-source-google-sheets.svg)
-![NPM](https://img.shields.io/npm/l/gridsome-source-google-sheets.svg)
+![npm](https://img.shields.io/npm/dt/@adapttive/gridsome-source-google-sheets)
+![npm](https://img.shields.io/npm/v/@adapttive/gridsome-source-google-sheets)
+![github](https://img.shields.io/github/package-json/v/adapttive/gridsome-source-google-sheets)
+<br>
 
-Source plugin for fetching data from Google Sheets. 
+> This is an updated fork of [this repository](https://github.com/spenwall/gridsome-source-google-sheets).
+
+Gridsome source plugin for google sheets, handles multiple pages or sheets!
 
 ## Requirements
 
 Gridsome: >0.7.0
 
-## Install 
+## Install
 
-```js
-yarn add gridsome-source-google-sheets
+```bash
+yarn add @adapttive/gridsome-source-google-sheets
 ```
+
 npm
-```js
-npm install gridsome-source-google-sheets
+
+```bash
+npm install @adapttive/gridsome-source-google-sheets
 ```
 
 ## How to use
 
-You will need to generate a google api key [here](https://console.developers.google.com/apis/credentials). The sheetId 
-can be found on the sheets url. It is the large hash number near the end. You will also need to make your spreadsheet viewable to the public to use the api credentials.
+You will need to generate a google api key [here](https://console.developers.google.com/apis/credentials). The Spreadsheet ID can be found on the sheets url. You will also need to make your spreadsheet viewable to the public to use the api credentials.
 
 ```js
 module.exports = {
-  siteName: 'Gridsome',
+  siteName: "Gridsome",
   plugins: [
     {
-      use: 'gridsome-source-google-sheets',
+      use: "gridsome-source-google-sheets",
       options: {
-        sheetId: 'GOOGLE_SHEET_ID', 
-        apiKey: 'GOOGLE_API_KEY',
-        // type: 'TYPE_NAME', //Optional - default is googleSheet. Used for graphql queries.
+        apiKey: "GOOGLE_API_KEY",
+        spreadsheets: [
+          {
+            spreadsheetId: "SPREADSHEET_ID",
+            sheets: [
+              {
+                sheetName: "SHEET_NAME", // Example: "Sheet1"
+                collectionName: "COLLECTION_NAME" // Example: "Users" (Must be unique)
+              }
+            ]
+          }
+        ]
       }
     }
   ]
 }
 ```
 
+### How to Use Multiple Spreadsheets
+
+```js
+options.spreadsheets: [
+  {
+    spreadsheetId: 'SPREADSHEET_ID_1',
+    sheets: [
+      {
+        sheetName: 'SHEET_NAME', // Example: "Sheet1"
+        collectionName: 'COLLECTION_NAME', // Example: "Users" (Must be unique)
+      },
+    ],
+  },
+  {
+    spreadsheetId: 'SPREADSHEET_ID_2',
+    sheets: [
+      {
+        sheetName: 'SHEET_NAME', // Example: "Sheet2"
+        collectionName: 'COLLECTION_NAME', // Example: "Projects" (Must be unique)
+      },
+    ],
+  },
+]
+```
+
+### How to Use Multiple Sheets from the Same Spreadsheet
+
+```js
+options.spreadsheets: [
+  {
+    spreadsheetId: 'SPREADSHEET_ID',
+    sheets: [
+      {
+        sheetName: 'SHEET_NAME', // Example: "Sheet1"
+        collectionName: 'COLLECTION_NAME', // Example: "Projects" (Must be unique)
+      },
+      {
+        sheetName: 'SHEET_NAME', // Example: "Sheet2"
+        collectionName: 'COLLECTION_NAME', // Example: "Users" (Must be Unique)
+      },
+    ],
+  },
+]
+```
+
 ### Example query on page template
+
+This plugin assumes that the first row in your table is the column name. In this example the 2 columns that exist are named `title` and `body`, with `id` being a key that this plugin generates automatically.
 
 ```js
 <page-query>
-  query MyData {
-    allGoogleSheet {
+  query {
+    allCollectionName {
       edges {
         node {
-          id
-          title
+          id, // Automatically generated
+          title,
+          body
         }
       }
     }
@@ -60,14 +121,14 @@ module.exports = {
 
 ### To use data in page
 
+`$page.allCollectionName.edges` will be an array of each row of your Google Sheet.
+
 ```js
 <template>
-  <div>
-    {{ $page.allGoogleSheet.node.id }}
-  </div>
-  <div>
-    {{ $page.allGoogleSheet.node.title }}
-  </div>
+    <!--  Example: "{{ $page.allUsers.edges }}" -->
+    <div v-for="row in $page.allCollectionName.edges" v-key="row.node.id">
+      {{ row.node.id }}
+    </div>
 </template>
 ```
 
@@ -77,50 +138,58 @@ To use this in a template first setup the template route in gridsome.config.js
 
 ```js
 module.exports = {
-  siteName: 'Gridsome',
+  siteName: "Gridsome",
   plugins: [
     {
-      use: 'gridsome-source-google-sheets',
+      use: "gridsome-source-google-sheets",
       options: {
-        sheetId: 'GOOGLE_SHEET_ID', 
-        apiKey: 'GOOGLE_API_KEY',
-        // type: 'TYPE_NAME', //Optional - default is googleSheet. Used for graphql queries.
+        apiKey: "GOOGLE_API_KEY",
+        spreadsheets: [
+          {
+            spreadsheetId: "SPREADSHEET_ID",
+            sheets: [
+              {
+                sheetName: "SHEET_NAME", // Example: "Sheet1"
+                collectionName: "COLLECTION_NAME" // Example: "Users" (Must be unique)
+              }
+            ]
+          }
+        ]
       }
     }
   ],
   templates: {
-    googleSheet: [
+    collectionName: [
       {
-        path: '/:id',
-        component: './src/templates/googleSheet.vue'
+        path: "/somePath/:id", // Example: "/user/:id"
+        component: "./src/templates/collectionName.vue" // Example: "./src/templates/users.vue"
       }
     ]
   }
 }
-
 ```
 
-### Example template in src/template/googleSheet.vue
+### Example template in src/template/collectionName.vue
 
-```js
+```html
 <template>
   <layout>
-    <div>{{$page.googleSheet.title}}</div>
-    <div>{{$page.googleSheet.body}}</div>
+    <!--  Example: "{{ $page.users.title }}" -->
+    <div>{{ $page.collectionName.title }}</div>
+
+    <!--  Example: "{{ $page.users.body }}" -->
+    <div>{{ $page.collectionName.body }}</div>
   </layout>
 </template>
+```
 
+```js
 <page-query>
-query Post ($path: String!) {
-  googleSheet (path: $path) {
-    title
+query ($id: ID!) {
+  collectionName(id: $id) { // Example: "users(id: $id)"
+    title,
     body
   }
 }
 </page-query>
 ```
-
-## Limitations
-
-* Max columns 52
-* Max rows 10000
