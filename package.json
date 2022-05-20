@@ -1,19 +1,29 @@
 {
-  "name": "gridsome-source-google-sheets-v2",
+  "name": "@adapttive/gridsome-source-google-sheets",
   "author": {
-    "name": "JB Hutch"
+    "name": "Spencer Wallace",
+    "email": "spencer.wallace@outlook.com"
   },
-  "version": "1.0.4",
-  "description": "Gridsome source plugin for google sheets, handles multiple pages or sheets",
+  "contributors": [
+    {
+      "name": "Milind Singh",
+      "email": "milind7@live.com"
+    }
+  ],
+  "version": "1.0.0",
+  "description": "Gridsome source plugin for google sheets",
   "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
-    "url": "git://github.com/IHIutch/gridsome-source-google-sheets.git"
+    "url": "git://github.com/adapttive/gridsome-source-google-sheets.git"
   },
   "bugs": {
-    "url": "https://github.com/IHIutch/gridsome-source-google-sheets/issues"
+    "url": "https://github.com/adapttive/gridsome-source-google-sheets/issues"
   },
-  "homepage": "https://github.com/IHIutch/gridsome-source-google-sheets.git",
+  "homepage": "https://github.com/adapttive/gridsome-source-google-sheets.git",
   "license": "MIT",
   "keywords": [
     "gridsome",
@@ -22,7 +32,7 @@
     "google-sheets"
   ],
   "dependencies": {
-    "googleapis": "^40.0.0"
+    "googleapis": "^100.0.0"
   },
   "devDependencies": {
     "prettier": "^1.17.1"

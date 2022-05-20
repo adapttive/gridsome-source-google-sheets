@@ -1,11 +1,11 @@
 # Gridsome Source for Google Sheets v2
 
-![npm](https://img.shields.io/npm/dt/gridsome-source-google-sheets-v2)
-![npm](https://img.shields.io/npm/v/gridsome-source-google-sheets-v2)
-![github](https://img.shields.io/github/package-json/v/IHIutch/gridsome-source-google-sheets)
+![npm](https://img.shields.io/npm/dt/@adapttive/gridsome-source-google-sheets)
+![npm](https://img.shields.io/npm/v/@adapttive/gridsome-source-google-sheets)
+![github](https://img.shields.io/github/package-json/v/adapttive/gridsome-source-google-sheets)
 <br>
 
-> This is an updated fork of [this repository](https://github.com/spenwall/gridsome-source-google-sheets), but until my PR gets merged I decided to publish my own plugin.
+> This is an updated fork of [this repository](https://github.com/spenwall/gridsome-source-google-sheets).
 
 Gridsome source plugin for google sheets, handles multiple pages or sheets!
 
@@ -15,14 +15,14 @@ Gridsome: >0.7.0
 
 ## Install
 
-```js
-yarn add gridsome-source-google-sheets-v2
+```bash
+yarn add @adapttive/gridsome-source-google-sheets
 ```
 
 npm
 
-```js
-npm install gridsome-source-google-sheets-v2
+```bash
+npm install @adapttive/gridsome-source-google-sheets
 ```
 
 ## How to use
@@ -34,7 +34,7 @@ module.exports = {
   siteName: "Gridsome",
   plugins: [
     {
-      use: "gridsome-source-google-sheets-v2",
+      use: "gridsome-source-google-sheets",
       options: {
         apiKey: "GOOGLE_API_KEY",
         spreadsheets: [
